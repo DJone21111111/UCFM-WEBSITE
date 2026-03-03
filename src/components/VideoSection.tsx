@@ -8,9 +8,9 @@ const WatchLiveSection = () => {
   const [showLatest, setShowLatest] = useState(false);
 
   const liveStreamUrl =
-    "https://www.youtube.com/embed/live_stream?channel=UCPGf8ENeO4j7Wglu-i4PDWg";
+    "https://www.youtube.com/embed/live_stream?channel=PGf8ENeO4j7Wglu-i4PDWg";
   const latestVideosUrl =
-    "https://www.youtube.com/embed?listType=user_uploads&list=UniversalChristianFaithMinistry";
+    "https://www.youtube.com/embed/gm3T_ddIxeg";
   const channelUrl =
     "https://www.youtube.com/@UniversalChristianFaithMinistry";
 
