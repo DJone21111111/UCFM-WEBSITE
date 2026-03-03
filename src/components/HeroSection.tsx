@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Phone, MapPin, Clock, Facebook } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import gallery1 from "@/assets/gallery-1.jpeg";
-import gallery2 from "@/assets/gallery-2.jpeg";
-import gallery3 from "@/assets/gallery-3.jpeg";
+import congregation from "@/assets/congregation.jpeg";
+import worship from "@/assets/worship.jpeg";
+import womensDay from "@/assets/womens-day.jpeg";
 
 interface Slide {
   bg: string;
@@ -25,7 +25,7 @@ const slides: Slide[] = [
     cta: { label: "Join Us This Sunday", href: "#services" },
   },
   {
-    bg: gallery1,
+    bg: congregation,
     title: "BIBLE\nSTUDY &\nPRAYER",
     subtitle: "GROW DEEPER IN THE WORD\nAND IN PRAYER WITH US",
     details: ["WEDNESDAY • 7:00 PM"],
@@ -33,7 +33,7 @@ const slides: Slide[] = [
     cta: { label: "Learn More", href: "#about" },
   },
   {
-    bg: gallery2,
+    bg: worship,
     title: "PRAYER\nNIGHT",
     subtitle: "A NIGHT OF POWERFUL\nINTERCESSION & BREAKTHROUGH",
     details: ["FRIDAY • 8:00 PM"],
@@ -41,7 +41,7 @@ const slides: Slide[] = [
     cta: { label: "Contact Us", href: "#contact" },
   },
   {
-    bg: gallery3,
+    bg: womensDay,
     title: "CONNECT\nWITH\nUS",
     subtitle: "REACH OUT AND BECOME\nPART OF OUR FAMILY",
     details: [

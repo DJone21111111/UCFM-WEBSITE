@@ -1,24 +1,19 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
-import { AnimatePresence } from "framer-motion";
 
-import gallery1 from "@/assets/gallery-1.jpeg";
-import gallery2 from "@/assets/gallery-2.jpeg";
-import gallery3 from "@/assets/gallery-3.jpeg";
-import gallery4 from "@/assets/gallery-4.jpeg";
-import gallery5 from "@/assets/gallery-5.jpeg";
-import gallery6 from "@/assets/gallery-6.jpeg";
-import gallery7 from "@/assets/gallery-7.jpeg";
+import congregation from "@/assets/congregation.jpeg";
+import generalOverseer from "@/assets/general-overseer.jpeg";
+import worship from "@/assets/worship.jpeg";
+import womensDay from "@/assets/womens-day.jpeg";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const images = [
-  { src: gallery1, alt: "Apostle General with church member" },
-  { src: gallery2, alt: "Apostle General with young church members and flowers" },
-  { src: gallery3, alt: "Church members welcoming Apostle General with flowers" },
-  { src: gallery4, alt: "Pastor's Appreciation Day celebration at UCFM" },
-  { src: gallery5, alt: "Member worshipping during a church service" },
-  { src: gallery6, alt: "Congregation member in deep worship" },
-  { src: gallery7, alt: "Congregation worshipping together at UCFM" },
+  { src: congregation, alt: "UCFM congregation worshipping together" },
+  { src: generalOverseer, alt: "Rev. King Prosper preaching at UCFM" },
+  { src: worship, alt: "Members in deep worship during service" },
+  { src: womensDay, alt: "Women's Day celebration at UCFM" },
+  { src: heroBg, alt: "Open Bible with autumn background" },
 ];
 
 const GallerySection = () => {
@@ -42,7 +37,7 @@ const GallerySection = () => {
           <div className="w-20 h-1 bg-gold-gradient mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {images.map((image, i) => (
             <motion.button
               key={i}
@@ -51,7 +46,7 @@ const GallerySection = () => {
               transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
               onClick={() => setLightbox(i)}
               className={`relative overflow-hidden rounded-xl group cursor-pointer focus-visible:ring-2 focus-visible:ring-gold ${
-                i === 0 || i === 6 ? "row-span-2" : ""
+                i === 0 || i === 3 ? "row-span-2" : ""
               }`}
               aria-label={`View ${image.alt}`}
             >
