@@ -6,7 +6,7 @@ const services = [
   { day: "Friday", name: "Friday Service", time: "20:00 – 22:00", icon: Clock },
   { day: "1st Friday", name: "Absolute Worship", time: "20:00 – 22:00", icon: Calendar },
   { day: "3rd Friday", name: "All Night Service", time: "23:20 – 05:00", icon: Clock },
-  { day: "Sunday", name: "Victory Service", time: "12:30 – 17:30", icon: Calendar },
+  { day: "Sunday", name: "Victory Service", time: "14:30 – 17:30", icon: Calendar },
 ];
 
 const ServicesSection = () => {
