@@ -58,7 +58,7 @@ const VideoSection = () => {
             loop
             muted
             playsInline
-            className="w-full max-h-[85vh] object-contain mx-auto"
+            className="w-full aspect-video object-cover mx-auto"
             preload="auto"
           >
             <source src="/videos/church-video.mp4" type="video/mp4" />
