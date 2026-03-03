@@ -1,85 +1,64 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, MapPin, Clock, Phone, Facebook } from "lucide-react";
-import heroWorship from "@/assets/hero-worship.jpg";
-import heroBible from "@/assets/hero-bible.jpg";
-import heroPrayer from "@/assets/hero-prayer.jpg";
-import heroCommunity from "@/assets/hero-community.jpg";
+import { ChevronLeft, ChevronRight, Phone, MapPin, Clock, Facebook } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
+import gallery1 from "@/assets/gallery-1.jpeg";
+import gallery2 from "@/assets/gallery-2.jpeg";
+import gallery3 from "@/assets/gallery-3.jpeg";
 
 interface Slide {
   bg: string;
-  tagline: string;
   title: string;
-  subtitle: string;
-  details: { icon: typeof Clock; text: string }[];
-  cta: { label: string; href: string };
+  subtitle?: string;
+  details: string[];
+  highlight?: string;
+  cta?: { label: string; href: string };
 }
 
 const slides: Slide[] = [
   {
-    bg: heroWorship,
-    tagline: "Join Us Every Sunday",
-    title: "SUNDAY WORSHIP SERVICE",
-    subtitle: "Experience the presence of God through praise, worship, and the preaching of His Word.",
-    details: [
-      { icon: Clock, text: "Sundays • 10:00 AM – 1:00 PM" },
-      { icon: MapPin, text: "Hettenheuvelweg 18, 1101BN, Amsterdam" },
-    ],
-    cta: { label: "Plan Your Visit", href: "#contact" },
+    bg: heroBg,
+    title: "SUNDAY\nWORSHIP\nSERVICE",
+    subtitle: "JOIN US EVERY SUNDAY FOR\nPRAISE, WORSHIP & THE WORD",
+    details: ["SUNDAYS • 10:00 AM"],
+    highlight: "Hettenheuvelweg 18, 1101BN, Amsterdam",
+    cta: { label: "Join Us This Sunday", href: "#services" },
   },
   {
-    bg: heroBible,
-    tagline: "Grow Deeper In The Word",
-    title: "BIBLE STUDY & PRAYER",
-    subtitle: "A midweek encounter to strengthen your faith and deepen your understanding of Scripture.",
-    details: [
-      { icon: Clock, text: "Wednesdays • 7:00 PM – 9:00 PM" },
-      { icon: MapPin, text: "Hettenheuvelweg 18, 1101BN, Amsterdam" },
-    ],
-    cta: { label: "Learn More", href: "#services" },
+    bg: gallery1,
+    title: "BIBLE\nSTUDY &\nPRAYER",
+    subtitle: "GROW DEEPER IN THE WORD\nAND IN PRAYER WITH US",
+    details: ["WEDNESDAY • 7:00 PM"],
+    highlight: "Where Jesus is making the zeros to heroes",
+    cta: { label: "Learn More", href: "#about" },
   },
   {
-    bg: heroPrayer,
-    tagline: "A Night Of Breakthrough",
-    title: "FRIDAY PRAYER NIGHT",
-    subtitle: "Powerful intercession and spiritual warfare. Come expectant, leave transformed.",
-    details: [
-      { icon: Clock, text: "Fridays • 8:00 PM – 10:00 PM" },
-      { icon: MapPin, text: "Hettenheuvelweg 18, 1101BN, Amsterdam" },
-    ],
-    cta: { label: "Join Us In Prayer", href: "#contact" },
+    bg: gallery2,
+    title: "PRAYER\nNIGHT",
+    subtitle: "A NIGHT OF POWERFUL\nINTERCESSION & BREAKTHROUGH",
+    details: ["FRIDAY • 8:00 PM"],
+    highlight: "Come as you are, leave transformed",
+    cta: { label: "Contact Us", href: "#contact" },
   },
   {
-    bg: heroCommunity,
-    tagline: "Become Part Of Our Family",
-    title: "CONNECT WITH UCFM",
-    subtitle: "We are a bible believing church where Jesus is making the zeros to heroes.",
+    bg: gallery3,
+    title: "CONNECT\nWITH\nUS",
+    subtitle: "REACH OUT AND BECOME\nPART OF OUR FAMILY",
     details: [
-      { icon: Phone, text: "06 2281 3149" },
-      { icon: Facebook, text: "UCFM Amsterdam" },
+      "PHONE: 06 2281 3149",
+      "WHATSAPP: 06 2281 3149",
+      "EMAIL: universalchristianfaithministr@gmail.com",
     ],
+    highlight: "Facebook: UCFM Amsterdam",
     cta: { label: "Give Online", href: "#give" },
   },
 ];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
 
-  const next = useCallback(() => {
-    setDirection(1);
-    setCurrent((c) => (c + 1) % slides.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setDirection(-1);
-    setCurrent((c) => (c - 1 + slides.length) % slides.length);
-  }, []);
-
-  const goTo = useCallback((i: number) => {
-    setDirection(i > current ? 1 : -1);
-    setCurrent(i);
-  }, [current]);
+  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
 
   useEffect(() => {
     const timer = setInterval(next, 7000);
@@ -88,12 +67,6 @@ const HeroSection = () => {
 
   const slide = slides[current];
 
-  const variants = {
-    enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 80 : -80 }),
-    center: { opacity: 1, x: 0 },
-    exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -80 : 80 }),
-  };
-
   return (
     <section
       id="home"
@@ -101,136 +74,116 @@ const HeroSection = () => {
       aria-label="Welcome to Universal Christian Faith Ministry"
       aria-roledescription="carousel"
     >
-      {/* Background */}
+      {/* Background images */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
-          initial={{ opacity: 0, scale: 1.08 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
-          <img src={slide.bg} alt="" role="presentation" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-navy-dark/75" />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/95 via-navy-dark/70 to-navy-dark/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 via-transparent to-transparent" />
+          <img
+            src={slide.bg}
+            alt=""
+            role="presentation"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-navy-dark/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/90 via-navy-dark/60 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-32 pb-20">
-        <AnimatePresence mode="wait" custom={direction}>
+      {/* Slide content */}
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-16">
+        <AnimatePresence mode="wait">
           <motion.div
             key={current}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="max-w-3xl"
           >
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-gold font-body font-semibold text-sm md:text-base uppercase tracking-[0.25em] mb-4"
-            >
-              {slide.tagline}
-            </motion.p>
-
             {/* Title */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-primary-foreground leading-[1] mb-5">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-[0.95] mb-6 whitespace-pre-line uppercase">
               {slide.title}
             </h1>
 
-            {/* Gold accent line */}
-            <div className="w-24 h-1.5 bg-gold-gradient rounded-full mb-6" />
-
             {/* Subtitle */}
-            <p className="font-body text-primary-foreground/80 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
-              {slide.subtitle}
-            </p>
+            {slide.subtitle && (
+              <p className="font-body text-primary-foreground/80 text-base sm:text-lg md:text-xl uppercase tracking-wide mb-6 whitespace-pre-line leading-relaxed">
+                {slide.subtitle}
+              </p>
+            )}
 
             {/* Details */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <div className="space-y-2 mb-6">
               {slide.details.map((detail, i) => (
-                <div
+                <p
                   key={i}
-                  className="flex items-center gap-3 bg-primary-foreground/5 backdrop-blur-sm border border-gold/20 rounded-lg px-5 py-3"
+                  className="font-display text-gold font-bold text-lg sm:text-xl md:text-2xl uppercase tracking-wider"
                 >
-                  <detail.icon className="h-5 w-5 text-gold shrink-0" aria-hidden="true" />
-                  <span className="text-primary-foreground/90 font-body font-medium text-sm">
-                    {detail.text}
-                  </span>
-                </div>
+                  {detail}
+                </p>
               ))}
             </div>
 
+            {/* Highlight */}
+            {slide.highlight && (
+              <p className="font-body text-primary-foreground/70 text-base md:text-lg mb-8 flex items-center gap-2">
+                {current === 0 && <MapPin className="h-5 w-5 text-gold shrink-0" />}
+                {current === 3 && <Facebook className="h-5 w-5 text-gold shrink-0" />}
+                {current !== 0 && current !== 3 && <Clock className="h-5 w-5 text-gold shrink-0" />}
+                {slide.highlight}
+              </p>
+            )}
+
             {/* CTA */}
-            <a
-              href={slide.cta.href}
-              className="inline-block bg-gold-gradient text-navy-dark font-bold px-10 py-4 rounded-lg text-base uppercase tracking-wider hover:shadow-gold transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              {slide.cta.label}
-            </a>
+            {slide.cta && (
+              <a
+                href={slide.cta.href}
+                className="inline-block bg-gold-gradient text-navy-dark font-bold px-8 py-4 rounded-md text-lg uppercase tracking-wider hover:shadow-gold transition-all"
+              >
+                {slide.cta.label}
+              </a>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Arrows */}
+      {/* Navigation arrows */}
       <button
         onClick={prev}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-gold/20 backdrop-blur-md rounded-full p-3 md:p-4 text-primary-foreground hover:text-gold transition-all border border-primary-foreground/10 hover:border-gold/40"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm rounded-full p-3 text-primary-foreground transition-colors focus-visible:outline-gold"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        <ChevronLeft className="h-6 w-6" />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-gold/20 backdrop-blur-md rounded-full p-3 md:p-4 text-primary-foreground hover:text-gold transition-all border border-primary-foreground/10 hover:border-gold/40"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm rounded-full p-3 text-primary-foreground transition-colors focus-visible:outline-gold"
         aria-label="Next slide"
       >
-        <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+        <ChevronRight className="h-6 w-6" />
       </button>
 
-      {/* Dots + slide counter */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4" role="tablist" aria-label="Slide indicators">
-        <span className="text-primary-foreground/50 text-xs font-mono tracking-wider">
-          {String(current + 1).padStart(2, "0")}
-        </span>
-        <div className="flex gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              role="tab"
-              aria-selected={i === current}
-              aria-label={`Go to slide ${i + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-500 ${
-                i === current
-                  ? "w-10 bg-gold"
-                  : "w-2.5 bg-primary-foreground/30 hover:bg-primary-foreground/50"
-              }`}
-            />
-          ))}
-        </div>
-        <span className="text-primary-foreground/50 text-xs font-mono tracking-wider">
-          {String(slides.length).padStart(2, "0")}
-        </span>
+      {/* Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3" role="tablist" aria-label="Slide indicators">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            role="tab"
+            aria-selected={i === current}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-3 rounded-full transition-all duration-300 ${
+              i === current ? "w-10 bg-gold" : "w-3 bg-primary-foreground/40 hover:bg-primary-foreground/60"
+            }`}
+          />
+        ))}
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2"
-      >
-        <span className="text-primary-foreground/40 text-xs uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-gold/60 to-transparent" />
-      </motion.div>
     </section>
   );
 };
