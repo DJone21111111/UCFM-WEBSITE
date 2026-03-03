@@ -1,71 +1,188 @@
-import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Phone, MapPin, Clock, Facebook } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import gallery1 from "@/assets/gallery-1.jpeg";
+import gallery2 from "@/assets/gallery-2.jpeg";
+import gallery3 from "@/assets/gallery-3.jpeg";
+
+interface Slide {
+  bg: string;
+  title: string;
+  subtitle?: string;
+  details: string[];
+  highlight?: string;
+  cta?: { label: string; href: string };
+}
+
+const slides: Slide[] = [
+  {
+    bg: heroBg,
+    title: "SUNDAY\nWORSHIP\nSERVICE",
+    subtitle: "JOIN US EVERY SUNDAY FOR\nPRAISE, WORSHIP & THE WORD",
+    details: ["SUNDAYS • 10:00 AM"],
+    highlight: "Hettenheuvelweg 18, 1101BN, Amsterdam",
+    cta: { label: "Join Us This Sunday", href: "#services" },
+  },
+  {
+    bg: gallery1,
+    title: "BIBLE\nSTUDY &\nPRAYER",
+    subtitle: "GROW DEEPER IN THE WORD\nAND IN PRAYER WITH US",
+    details: ["WEDNESDAY • 7:00 PM"],
+    highlight: "Where Jesus is making the zeros to heroes",
+    cta: { label: "Learn More", href: "#about" },
+  },
+  {
+    bg: gallery2,
+    title: "PRAYER\nNIGHT",
+    subtitle: "A NIGHT OF POWERFUL\nINTERCESSION & BREAKTHROUGH",
+    details: ["FRIDAY • 8:00 PM"],
+    highlight: "Come as you are, leave transformed",
+    cta: { label: "Contact Us", href: "#contact" },
+  },
+  {
+    bg: gallery3,
+    title: "CONNECT\nWITH\nUS",
+    subtitle: "REACH OUT AND BECOME\nPART OF OUR FAMILY",
+    details: [
+      "PHONE: 06 2281 3149",
+      "WHATSAPP: 06 2281 3149",
+      "EMAIL: universalchristianfaithministr@gmail.com",
+    ],
+    highlight: "Facebook: UCFM Amsterdam",
+    cta: { label: "Give Online", href: "#give" },
+  },
+];
 
 const HeroSection = () => {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
+
+  useEffect(() => {
+    const timer = setInterval(next, 7000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  const slide = slides[current];
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       aria-label="Welcome to Universal Christian Faith Ministry"
+      aria-roledescription="carousel"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt=""
-          role="presentation"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-navy-dark/75" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-transparent to-navy-dark/50" />
+      {/* Background images */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className="absolute inset-0"
+        >
+          <img
+            src={slide.bg}
+            alt=""
+            role="presentation"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-navy-dark/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/90 via-navy-dark/60 to-transparent" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Slide content */}
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-16">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            {/* Title */}
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-[0.95] mb-6 whitespace-pre-line uppercase">
+              {slide.title}
+            </h1>
+
+            {/* Subtitle */}
+            {slide.subtitle && (
+              <p className="font-body text-primary-foreground/80 text-base sm:text-lg md:text-xl uppercase tracking-wide mb-6 whitespace-pre-line leading-relaxed">
+                {slide.subtitle}
+              </p>
+            )}
+
+            {/* Details */}
+            <div className="space-y-2 mb-6">
+              {slide.details.map((detail, i) => (
+                <p
+                  key={i}
+                  className="font-display text-gold font-bold text-lg sm:text-xl md:text-2xl uppercase tracking-wider"
+                >
+                  {detail}
+                </p>
+              ))}
+            </div>
+
+            {/* Highlight */}
+            {slide.highlight && (
+              <p className="font-body text-primary-foreground/70 text-base md:text-lg mb-8 flex items-center gap-2">
+                {current === 0 && <MapPin className="h-5 w-5 text-gold shrink-0" />}
+                {current === 3 && <Facebook className="h-5 w-5 text-gold shrink-0" />}
+                {current !== 0 && current !== 3 && <Clock className="h-5 w-5 text-gold shrink-0" />}
+                {slide.highlight}
+              </p>
+            )}
+
+            {/* CTA */}
+            {slide.cta && (
+              <a
+                href={slide.cta.href}
+                className="inline-block bg-gold-gradient text-navy-dark font-bold px-8 py-4 rounded-md text-lg uppercase tracking-wider hover:shadow-gold transition-all"
+              >
+                {slide.cta.label}
+              </a>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <p className="text-gold font-body font-semibold uppercase tracking-[0.3em] text-sm mb-4">
-            Welcome to
-          </p>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6">
-            Universal Christian
-            <br />
-            <span className="text-gradient-gold">Faith Ministry</span>
-          </h1>
-          <div className="w-24 h-1 bg-gold-gradient mx-auto mb-6 rounded-full" />
-          <p className="font-body text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            We are a bible believing church where Jesus is making the zeros to heroes.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#services"
-              className="bg-gold-gradient text-navy-dark font-bold px-8 py-4 rounded-md text-lg uppercase tracking-wider hover:shadow-gold transition-all"
-            >
-              Join Us This Sunday
-            </a>
-            <a
-              href="#about"
-              className="border-2 border-gold text-gold font-bold px-8 py-4 rounded-md text-lg uppercase tracking-wider hover:bg-gold/10 transition-all"
-            >
-              Learn More
-            </a>
-          </div>
-        </motion.div>
+      {/* Navigation arrows */}
+      <button
+        onClick={prev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm rounded-full p-3 text-primary-foreground transition-colors focus-visible:outline-gold"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={next}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm rounded-full p-3 text-primary-foreground transition-colors focus-visible:outline-gold"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
 
-        <motion.a
-          href="#about"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gold"
-          aria-label="Scroll down"
-        >
-          <ChevronDown className="h-8 w-8" />
-        </motion.a>
+      {/* Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3" role="tablist" aria-label="Slide indicators">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            role="tab"
+            aria-selected={i === current}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-3 rounded-full transition-all duration-300 ${
+              i === current ? "w-10 bg-gold" : "w-3 bg-primary-foreground/40 hover:bg-primary-foreground/60"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
