@@ -26,8 +26,8 @@ const VideoSection = () => {
   };
 
   return (
-    <section id="video" className="py-24 bg-navy-dark" aria-labelledby="video-heading">
-      <div className="container mx-auto px-4" ref={ref}>
+    <section id="video" className="bg-navy-dark" aria-labelledby="video-heading">
+      <div className="container mx-auto px-4 py-12" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -50,7 +50,7 @@ const VideoSection = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl group"
+          className="relative w-full overflow-hidden group"
         >
           <video
             ref={videoRef}
@@ -58,7 +58,7 @@ const VideoSection = () => {
             loop
             muted
             playsInline
-            className="w-full max-h-[70vh] object-contain mx-auto"
+            className="w-full max-h-[85vh] object-contain mx-auto"
             preload="auto"
           >
             <source src="/videos/church-video.mp4" type="video/mp4" />
