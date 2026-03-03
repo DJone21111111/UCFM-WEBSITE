@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 
@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
+  
   { label: "Contact", href: "#contact" },
   { label: "Give", href: "#give" },
 ];
@@ -48,22 +48,6 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="hidden lg:flex items-center gap-4">
-          <a
-            href="tel:0622813149"
-            className="flex items-center gap-2 text-gold text-sm font-semibold"
-            aria-label="Call us at 06 2281 3149"
-          >
-            <Phone className="h-4 w-4" />
-            <span>06 2281 3149</span>
-          </a>
-          <a
-            href="#give"
-            className="bg-gold-gradient text-navy-dark font-bold text-sm px-6 py-2.5 rounded-md hover:shadow-gold transition-shadow uppercase tracking-wider"
-          >
-            Give
-          </a>
-        </div>
 
         {/* Mobile toggle */}
         <button
