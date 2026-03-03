@@ -33,10 +33,12 @@ const VideoSection = () => {
           className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl"
         >
           <video
-            controls
-            className="w-full aspect-video bg-black"
-            preload="metadata"
+            autoPlay
+            loop
+            muted
             playsInline
+            className="w-full aspect-[9/16] max-h-[70vh] object-contain bg-black mx-auto"
+            preload="auto"
           >
             <source src="/videos/church-video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
