@@ -20,7 +20,7 @@ const slides: Slide[] = [
     bg: heroBg,
     title: "VICTORY\nSERVICE",
     subtitle: "JOIN US EVERY SUNDAY FOR\nPRAISE, WORSHIP & THE WORD",
-    details: ["SUNDAYS • 12:30 – 17:30"],
+    details: ["SUNDAYS • 14:30 – 17:30"],
     highlight: "Hettenheuvelweg 18, 1101BN, Amsterdam",
     cta: { label: "Join Us This Sunday", href: "#services" },
   },
