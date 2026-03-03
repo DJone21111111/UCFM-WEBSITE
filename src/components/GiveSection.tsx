@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Heart, Copy, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 const GiveSection = () => {
   const ref = useRef(null);
@@ -22,9 +22,6 @@ const GiveSection = () => {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-8">
-            <Heart className="h-10 w-10 text-gold" />
-          </div>
           <p className="text-gold font-semibold uppercase tracking-[0.2em] text-sm mb-3">Support Our Ministry</p>
           <h2 id="give-heading" className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mb-6">
             Give Generously
