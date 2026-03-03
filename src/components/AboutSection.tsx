@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { BookOpen, Heart, Users, Globe } from "lucide-react";
-import gallery1 from "@/assets/gallery-4.jpeg";
+import generalOverseer from "@/assets/general-overseer.jpeg";
 
 const values = [
   { icon: BookOpen, title: "Bible-Based Teaching", description: "Our foundation is built on the Word of God, teaching sound biblical principles." },
@@ -45,8 +45,8 @@ const AboutSection = () => {
             className="relative rounded-xl overflow-hidden shadow-navy"
           >
             <img
-              src={gallery1}
-              alt="Pastor's Appreciation Day celebration at UCFM Amsterdam"
+              src={generalOverseer}
+              alt="Rev. King Prosper, General Overseer of UCFM Amsterdam, preaching"
               className="w-full h-[400px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 to-transparent" />
